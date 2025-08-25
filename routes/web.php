@@ -2,7 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Models\User; // 👈 IMPORTANTE: para poderes usar o User::all()
+use App\Models\User;
+
+use App\Http\Controllers\ZoneController;
+use App\Http\Controllers\CameraController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,6 +38,10 @@ Route::middleware('auth')->group(function () {
         $users = User::all();
         return view('users.index', compact('users'));
     })->name('users.index');
+
+    // Rota de Camaras
+    Route::resource('zones', ZoneController::class);
+    Route::resource('zones.cameras', CameraController::class);
 });
 
 require __DIR__.'/auth.php';
